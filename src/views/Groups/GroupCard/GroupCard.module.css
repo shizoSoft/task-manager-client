@@ -1,0 +1,15 @@
+.Card {
+  transition: background-color 50ms ease-in;
+}
+
+.Title {
+  transition: color 50ms ease-in;
+}
+
+.Card:hover {
+  background-color: #F4F5F9;
+}
+
+.Card:hover .Title {
+  color: black;
+}

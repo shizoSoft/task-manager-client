@@ -19,19 +19,21 @@ function Navbar() {
       </Link>
 
       <Popover
-        content={
+        content={({ close }) => (
           <Menu>
             <Menu.Group>
-              <Menu.Item>Settings</Menu.Item>
-              <Menu.Item is={RLink} to="/groups">
+              <Menu.Item onClick={close}>Settings</Menu.Item>
+              <Menu.Item is={RLink} to="/groups" onClick={close}>
                 Groups
               </Menu.Item>
             </Menu.Group>
             <Menu.Group>
-              <Menu.Item intent="danger">Logout</Menu.Item>
+              <Menu.Item intent="danger" onClick={close}>
+                Logout
+              </Menu.Item>
             </Menu.Group>
           </Menu>
-        }
+        )}
       >
         <Avatar name="John Doe" size={40} cursor="pointer" />
       </Popover>
