@@ -1,2 +1,3 @@
 export type { ChildrenProps } from './ChildrenProps';
-export type { Theme } from './Theme';
+export type { CardType } from './CardType';
+export type { ListType } from './ListType';
