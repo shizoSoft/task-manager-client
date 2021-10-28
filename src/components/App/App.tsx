@@ -1,28 +1,17 @@
-import React from 'react';
+import { Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import logo from '../../images/logo.svg';
-import './App.css';
-import Card from 'components/Card';
+import { routes } from 'config/router';
 
 function App() {
   return (
-    <div className="App">
-      <Card />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Switch>
+      <Suspense fallback={<p>Loading...</p>}>
+        {routes.map(({ label, privateOnly, publicOnly, ...routeProps }) => (
+          <Route key={label} {...routeProps} />
+        ))}
+      </Suspense>
+    </Switch>
   );
 }
 

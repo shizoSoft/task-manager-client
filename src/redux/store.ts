@@ -9,8 +9,12 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import exampleReducer from './example/example.reducer';
+
 export const store = configureStore({
-  reducer: () => undefined,
+  reducer: {
+    example: exampleReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
