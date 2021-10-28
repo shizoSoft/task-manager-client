@@ -16,4 +16,44 @@ export const routes: RouteConfig[] = [
     privateOnly: false,
     publicOnly: false,
   },
+  {
+    exact: true,
+    path: '/groups',
+    component: lazy(
+      () => import('views/Groups' /* webpackChunkName: 'Groups' */)
+    ),
+    label: 'Groups',
+    privateOnly: true,
+    publicOnly: false,
+  },
+  {
+    exact: true,
+    path: '/groups/:groupId',
+    component: lazy(
+      () => import('views/Group' /* webpackChunkName: 'Group' */)
+    ),
+    label: 'Group',
+    privateOnly: true,
+    publicOnly: false,
+  },
+  {
+    exact: true,
+    path: '/login',
+    component: lazy(
+      () => import('views/Login' /* webpackChunkName: 'Login' */)
+    ),
+    label: 'Login',
+    privateOnly: false,
+    publicOnly: true,
+  },
+  {
+    exact: true,
+    path: '/register',
+    component: lazy(
+      () => import('views/Register' /* webpackChunkName: 'Register' */)
+    ),
+    label: 'Register',
+    privateOnly: false,
+    publicOnly: true,
+  },
 ];
