@@ -6,7 +6,7 @@ import {
   MoreIcon,
   PlusIcon,
   Button,
-  Popover,
+  Popover as Popit,
   Menu,
 } from 'evergreen-ui';
 
@@ -38,8 +38,7 @@ function List({ title, cards, lists }: ListProps) {
         </Heading>
 
         <Pane>
-          <IconButton icon={PlusIcon} appearance="minimal" />
-          <Popover
+          <Popit
             position="bottom-left"
             content={
               <Menu>
@@ -49,7 +48,7 @@ function List({ title, cards, lists }: ListProps) {
             }
           >
             <IconButton icon={MoreIcon} appearance="minimal" />
-          </Popover>
+          </Popit>
         </Pane>
       </Pane>
       <Pane display="flex" flexDirection="column" gap={12}>
