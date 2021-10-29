@@ -1,9 +1,22 @@
-import { Card, Heading } from 'evergreen-ui';
+import {
+  Card,
+  Heading,
+  IconButton,
+  MoreIcon,
+  Pane,
+  Menu,
+  Popover,
+  SelectMenu,
+} from 'evergreen-ui';
 
-import { CardType } from 'types';
+import { CardType, ListType } from 'types';
 import { theme } from 'config/theme';
 
-function TaskCard({ title }: CardType) {
+interface TaskCardProps extends CardType {
+  lists: ListType[];
+}
+
+function TaskCard({ title, lists }: TaskCardProps) {
   return (
     <Card
       border
@@ -11,9 +24,39 @@ function TaskCard({ title }: CardType) {
       height={120}
       backgroundColor={theme.colors.gray200}
     >
-      <Heading is="h3" size={500} fontWeight={700}>
-        {title}
-      </Heading>
+      <Pane
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        marginBottom={12}
+      >
+        <Heading is="h3" size={500} fontWeight={700}>
+          {title}
+        </Heading>
+
+        <Pane>
+          <Popover
+            position="bottom-left"
+            content={
+              <Menu>
+                <Menu.Item>Edit</Menu.Item>
+                <SelectMenu
+                  title="Select list"
+                  options={lists.map(({ title, id }) => ({
+                    label: title,
+                    value: id,
+                  }))}
+                >
+                  <Menu.Item>Move to</Menu.Item>
+                </SelectMenu>
+                <Menu.Item intent="danger">Delete</Menu.Item>
+              </Menu>
+            }
+          >
+            <IconButton icon={MoreIcon} appearance="minimal" />
+          </Popover>
+        </Pane>
+      </Pane>
     </Card>
   );
 }

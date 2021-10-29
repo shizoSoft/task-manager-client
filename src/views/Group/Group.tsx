@@ -139,7 +139,7 @@ function Group() {
         flexBasis={0}
       >
         {lists.map((list) => (
-          <List key={list.id} {...list} />
+          <List key={list.id} lists={lists} {...list} />
         ))}
       </Pane>
     </Pane>
