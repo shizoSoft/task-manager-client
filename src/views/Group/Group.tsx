@@ -6,16 +6,20 @@ import List from './List';
 import { GroupType, ListType } from 'types';
 import axios from 'config/axios';
 import { AxiosResponse } from 'axios';
+import AddCardModal from './AddCardModal';
 
 function Group() {
   const [group, setGroup] = useState<GroupType | null>(null);
   const [groupLoading, setGroupLoading] = useState<boolean>(false);
   const [lists, setLists] = useState<ListType[]>([]);
   const [listsLoading, setListsLoading] = useState<boolean>(false);
+  const [newCardListId, setNewCardListId] = useState<number>(-1);
 
   const params = useParams<{ groupId: string }>();
 
-  useEffect(() => {
+  useEffect(fetchLists, [params.groupId]);
+
+  function fetchLists() {
     setGroupLoading(true);
 
     axios({
@@ -33,10 +37,44 @@ function Group() {
     })
       .then((res: AxiosResponse<ListType[]>) => setLists(res.data))
       .finally(() => setListsLoading(false));
-  }, [params.groupId]);
+  }
+
+  function openAddCardModal(listId: number) {
+    setNewCardListId(listId);
+  }
+
+  function closeAddCardModal() {
+    setNewCardListId(-1);
+  }
+
+  function handleAddCard(cardData: { title: string }) {
+    axios({
+      method: 'POST',
+      url: '/cards',
+      data: {
+        ...cardData,
+        listId: newCardListId,
+      },
+    })
+      .then(fetchLists)
+      .finally(closeAddCardModal);
+  }
+
+  function handleDeleteCard(cardId: number) {
+    axios({
+      method: 'DELETE',
+      url: `/cards/${cardId}`,
+    }).then(fetchLists);
+  }
 
   return (
     <Pane marginTop={24}>
+      <AddCardModal
+        isShown={newCardListId !== -1}
+        onClose={closeAddCardModal}
+        onConfirm={handleAddCard}
+      />
+
       {groupLoading && <Spinner />}
       {group && !groupLoading && (
         <Heading is="h2" size={800} marginBottom={24}>
@@ -57,7 +95,13 @@ function Group() {
           flexBasis={0}
         >
           {lists.map((list) => (
-            <List key={list.id} lists={lists} {...list} />
+            <List
+              key={list.id}
+              lists={lists}
+              {...list}
+              onAddCard={openAddCardModal}
+              onDeleteCard={handleDeleteCard}
+            />
           ))}
           <Button
             iconBefore={PlusIcon}

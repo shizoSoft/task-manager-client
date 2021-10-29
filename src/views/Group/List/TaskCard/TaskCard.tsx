@@ -14,9 +14,10 @@ import { theme } from 'config/theme';
 
 interface TaskCardProps extends CardType {
   lists: ListType[];
+  onDelete: (cardId: number) => void;
 }
 
-function TaskCard({ title, lists }: TaskCardProps) {
+function TaskCard({ id, title, lists, onDelete }: TaskCardProps) {
   return (
     <Card
       border
@@ -49,7 +50,9 @@ function TaskCard({ title, lists }: TaskCardProps) {
                 >
                   <Menu.Item>Move to</Menu.Item>
                 </SelectMenu>
-                <Menu.Item intent="danger">Delete</Menu.Item>
+                <Menu.Item intent="danger" onSelect={() => onDelete(id)}>
+                  Delete
+                </Menu.Item>
               </Menu>
             }
           >

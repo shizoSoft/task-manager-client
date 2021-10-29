@@ -15,9 +15,11 @@ import TaskCard from './TaskCard';
 
 interface ListProps extends ListType {
   lists: ListType[];
+  onAddCard: (listId: number) => void;
+  onDeleteCard: (cardId: number) => void;
 }
 
-function List({ title, cards, lists }: ListProps) {
+function List({ id, title, cards, lists, onAddCard, onDeleteCard }: ListProps) {
   return (
     <Card
       border
@@ -53,10 +55,19 @@ function List({ title, cards, lists }: ListProps) {
       </Pane>
       <Pane display="flex" flexDirection="column" gap={12}>
         {cards.map((card) => (
-          <TaskCard key={card.id} lists={lists} {...card} />
+          <TaskCard
+            key={card.id}
+            lists={lists}
+            {...card}
+            onDelete={onDeleteCard}
+          />
         ))}
 
-        <Button appearance="minimal" iconBefore={PlusIcon}>
+        <Button
+          appearance="minimal"
+          iconBefore={PlusIcon}
+          onClick={() => onAddCard(id)}
+        >
           Add
         </Button>
       </Pane>
