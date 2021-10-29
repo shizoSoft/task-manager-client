@@ -1,8 +1,12 @@
+import { Pane, Heading } from 'evergreen-ui';
+
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <Pane>
+      <Heading is="h1" size={900}>
+        Home
+      </Heading>
+    </Pane>
   );
 }
 

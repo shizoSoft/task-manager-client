@@ -1,4 +1,4 @@
-import { Pane } from 'evergreen-ui';
+import { Heading, Pane } from 'evergreen-ui';
 
 import GroupCard from './GroupCard';
 import Section from './Section';
@@ -7,7 +7,9 @@ import styles from './Groups.module.css';
 function Groups() {
   return (
     <Pane>
-      <h1>Groups</h1>
+      <Heading is="h1" size={800} marginBottom={24}>
+        My Groups
+      </Heading>
 
       <Section title="Favorite">
         <Pane className={styles.Grid}>

@@ -9,7 +9,7 @@ function Layout({ children }: ChildrenProps) {
     <Pane>
       <Navbar />
 
-      <Pane paddingX={32}>
+      <Pane paddingX={32} marginTop={24}>
         <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
       </Pane>
     </Pane>
