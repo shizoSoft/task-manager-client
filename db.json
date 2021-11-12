@@ -34,6 +34,19 @@
       "id": 3,
       "title": "List 3",
       "groupId": 2
+    },
+    {
+      "title": "New List",
+      "id": 4
+    },
+    {
+      "title": "New List 1",
+      "id": 5
+    },
+    {
+      "title": "New list",
+      "groupId": "1",
+      "id": 6
     }
   ],
   "cards": [
@@ -71,6 +84,11 @@
       "title": "Add new list creation",
       "listId": 1,
       "id": 7
+    },
+    {
+      "title": "Test card",
+      "listId": 6,
+      "id": 8
     }
   ]
 }

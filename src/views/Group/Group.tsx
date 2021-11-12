@@ -7,6 +7,7 @@ import { GroupType, ListType } from 'types';
 import axios from 'config/axios';
 import { AxiosResponse } from 'axios';
 import AddCardModal from './AddCardModal';
+import AddListModal from './AddListModal';
 
 function Group() {
   const [group, setGroup] = useState<GroupType | null>(null);
@@ -14,6 +15,8 @@ function Group() {
   const [lists, setLists] = useState<ListType[]>([]);
   const [listsLoading, setListsLoading] = useState<boolean>(false);
   const [newCardListId, setNewCardListId] = useState<number>(-1);
+  const [addListModalVisible, setAddListModalVisible] =
+    useState<boolean>(false);
 
   const params = useParams<{ groupId: string }>();
 
@@ -67,12 +70,38 @@ function Group() {
     }).then(fetchLists);
   }
 
+  function openAddListModal() {
+    setAddListModalVisible(true);
+  }
+
+  function closeAddListModal() {
+    setAddListModalVisible(false);
+  }
+
+  function handleAddList(listData: { title: string }) {
+    axios({
+      method: 'POST',
+      url: '/lists',
+      data: {
+        ...listData,
+        groupId: params.groupId,
+      },
+    })
+      .then(fetchLists)
+      .finally(closeAddListModal);
+  }
+
   return (
     <Pane marginTop={24}>
       <AddCardModal
         isShown={newCardListId !== -1}
         onClose={closeAddCardModal}
         onConfirm={handleAddCard}
+      />
+      <AddListModal
+        isShown={addListModalVisible}
+        onClose={closeAddListModal}
+        onConfirm={handleAddList}
       />
 
       {groupLoading && <Spinner />}
@@ -108,6 +137,7 @@ function Group() {
             minWidth={300}
             width={300}
             appearance="minimal"
+            onClick={openAddListModal}
           >
             Add
           </Button>
